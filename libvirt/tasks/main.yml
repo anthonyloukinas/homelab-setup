@@ -1,0 +1,9 @@
+---
+- hosts: all
+  vars_prompt:
+    - name: "vm_os"
+      prompt: "Operating System (rhel7, centos7)"
+  tasks:
+    - name: Include role based on OS selection
+      include_tasks: deploy-redhat.yml
+      when: vm_os === "rhel7"

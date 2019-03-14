@@ -1,6 +1,5 @@
 ---
-- hosts: all
-  vars_prompt:
+- vars_prompt:
     - name: "vm_name"
       prompt: "Hostname"
     - name: "vm_memory"
