@@ -3,12 +3,16 @@
   vars_prompt:
     - name: "vm_os"
       prompt: "Operating System (rhel7, centos7)"
+      private: no
     - name: "vm_name"
       prompt: "Hostname"
+      private: no
     - name: "vm_memory"
       prompt: "Memory (MiB)"
+      private: no
     - name: "vm_cpus"
       prompt: "CPU Count"
+      private: no
   tasks:
     - name: Include role based on OS selection
       include_tasks: deploy-redhat.yml
