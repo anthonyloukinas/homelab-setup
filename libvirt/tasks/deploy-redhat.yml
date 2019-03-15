@@ -1,21 +1,13 @@
 ---
-- vars_prompt:
-    - name: "vm_name"
-      prompt: "Hostname"
-    - name: "vm_memory"
-      prompt: "Memory (MiB)"
-    - name: "vm_cpus"
-      prompt: "CPU Count"
-  tasks:
-    - name: Define Virtual Machine
-      virt:
-        name: "{{ vm_name }}"
-        command: define
-        xml: "{{ lookup('template', '../templates/redhat-template.xml.j2') }}"
-        uri: "{{ kvm_uri }}"
-    
-    - name: Start Virtual Machine
-      virt:
-        name: "{{ vm_name }}"
-        state: running
-        uri: "{{ kvm_uri }}"
+- name: Define Virtual Machine
+  virt:
+    name: "{{ vm_name }}"
+    command: define
+    xml: "{{ lookup('template', '../templates/redhat-template.xml.j2') }}"
+    uri: "{{ kvm_uri }}"
+
+- name: Start Virtual Machine
+  virt:
+    name: "{{ vm_name }}"
+    state: running
+    uri: "{{ kvm_uri }}"
