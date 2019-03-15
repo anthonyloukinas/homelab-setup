@@ -44,7 +44,7 @@
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
     <interface type='bridge'>
-      <mac address='{{ default( "52:54:00"+lookup('lines', 'echo '+vm_name+'| md5sum | sed \'s/\(..\)/\\1:/g\' | cut -b1-8')) }}'/>
+      <mac address='{{ default( "52:54:00"+lookup('lines', 'echo '+{{vm_name}}+'| md5sum | sed \'s/\(..\)/\\1:/g\' | cut -b1-8')) }}'/>
       <source bridge='virbr0'/>
       <target dev='vnet1'/>
       <model type='virtio'/>
