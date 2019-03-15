@@ -3,7 +3,7 @@
   virt:
     name: "{{ vm_name }}"
     command: define
-    xml: "{{ lookup('template', '../templates/redhat-template.xml.j2') }}"
+    xml: "{{ lookup('template', 'redhat-template.xml.j2') }}"
     uri: "{{ kvm_uri }}"
 
 - name: "start virtual machine"
