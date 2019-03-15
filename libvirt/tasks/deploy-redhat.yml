@@ -1,12 +1,12 @@
 ---
-- name: Define Virtual Machine
+- name: "define virtual machine"
   virt:
     name: "{{ vm_name }}"
     command: define
     xml: "{{ lookup('template', '../templates/redhat-template.xml.j2') }}"
     uri: "{{ kvm_uri }}"
 
-- name: Start Virtual Machine
+- name: "start virtual machine"
   virt:
     name: "{{ vm_name }}"
     state: running
