@@ -8,6 +8,7 @@
   <os>
     <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>hvm</type>
     <boot dev='cdrom'/>
+    <bootmenu enable='yes' />
   </os>
   <features>
     <acpi/>
@@ -32,7 +33,7 @@
       <source file='/home/libvirt/images/isos/rhel-server-7.6-x86_64-dvd.iso'/>
       <target dev='hda' bus='ide'/>
       <readonly/>
-      <alias name='ide0-0-0'/>
+      <boot order='1' />
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
     <disk type='file' device='disk'>
