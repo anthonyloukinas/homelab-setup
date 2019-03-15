@@ -27,14 +27,6 @@
   </pm>
   <devices>
     <emulator>{{ kvm_emulator_path }}</emulator>
-    <disk type='file' device='disk'>
-      <driver name='qemu' type='qcow2'/>
-      <source file='/home/libvirt/images/{{ vm_name }}.qcow2'/>
-      <backingStore/>
-      <target dev='vda' bus='virtio'/>
-      <alias name='virtio-disk0'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
-    </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
       <source file='/home/libvirt/images/isos/rhel-server-7.6-x86_64-dvd.iso'/>
@@ -42,6 +34,14 @@
       <readonly/>
       <alias name='ide0-0-0'/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/home/libvirt/images/{{ vm_name }}.qcow2'/>
+      <backingStore/>
+      <target dev='vda' bus='virtio'/>
+      <alias name='virtio-disk0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
     </disk>
     <interface type='bridge'>
       <source bridge='virbr0'/>
