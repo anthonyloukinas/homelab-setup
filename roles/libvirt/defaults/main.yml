@@ -1,2 +1,6 @@
 ---
 vm_type: hvm
+vm_os: "rhel7"
+vm_name: "rhel-node1"
+vm_memory: 1024
+vm_cpus: 1
