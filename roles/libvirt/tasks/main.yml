@@ -1,6 +1,5 @@
 ---
-- hosts: all
-  vars_prompt:
+- vars_prompt:
     - name: "vm_os"
       prompt: "Operating System (rhel7, centos7)"
       private: no
