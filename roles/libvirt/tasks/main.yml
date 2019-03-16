@@ -6,7 +6,7 @@
   ignore_errors: yes
 
 - name: create virtual machine disk
-  command: qemu-img create -f {{ vm_disk_type }} {{ vm_disk_path }}/{{ vm_name }}.{{ vm_disk_format }} {{ vm_disk_size }}
+  command: qemu-img create -f {{ vm_disk_format }} {{ vm_disk_path }}/{{ vm_name }}.{{ vm_disk_format }} {{ vm_disk_size }}
   register: ImageFileCreate
   when: ImageFileCheck is not succeeded
 
