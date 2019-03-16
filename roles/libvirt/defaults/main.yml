@@ -1,6 +1,6 @@
 ---
 vm_type: hvm
-vm_disk_path: /home/libvirt/images/ # default location for vm images
+vm_disk_path: /home/libvirt/images # default location for vm images
 vm_disk_format: qcow2 # default disk image format (qcow2 provides most portability)
 network_bridge: virbr0 # this may vary depending on your system. virbr0 is typically default
 
