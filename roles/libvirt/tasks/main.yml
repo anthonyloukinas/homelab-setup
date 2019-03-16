@@ -1,4 +1,14 @@
 --- 
-- name: Include role based on OS selection
+- name: ensure disk path exists
+  file:
+    path: "{{ vm_disk_path }}/{{ vm_name }}.{{ vm_disk_format }}"
+  register: ImageFileCheck
+
+- name: create virtual machine disk
+  command: qemu-img create -f {{ vm_disk_type }} {{ vm_disk_path }}/{{ vm_name }}.{{ vm_disk_format }} {{ vm_disk_size }}
+  register: ImageFileCreate
+  when: ImageFileCheck is not succeeded
+
+- name: Include RedHat Deployment Task
   include_tasks: deploy-redhat.yml
-  when: vm_os == "rhel7"
+  when: vm_os_variant == "rhel7.0"

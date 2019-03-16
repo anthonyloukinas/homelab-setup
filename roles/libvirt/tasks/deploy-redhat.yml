@@ -1,13 +1,23 @@
 ---
-- name: "define virtual machine"
+- name: get list of VMs
   virt:
-    name: "{{ vm_name }}"
-    command: define
-    xml: "{{ lookup('template', 'redhat-template.xml.j2') }}"
-    uri: "{{ kvm_uri }}"
+    command: "list_vms"
+  register: RunningVMs
 
-- name: "start virtual machine"
-  virt:
-    name: "{{ vm_name }}"
-    state: running
-    uri: "{{ kvm_uri }}"
+- name: init rhel virtual machine
+  command: >
+    virt-install \
+      --name {{ vm_name }} \
+      --ram {{ vm_memory }} \
+      --disk path={{ vm_disk_path }}/{{ vm_name }}.{{ vm_disk_format }},size={{ vm_disk_size }} \
+      --vcpus {{ vm_vcpus }} \
+      --os-type {{ vm_os_type }} \
+      --os-variant {{ vm_os_variant }} \
+      --network bridge={{ network_bridge }} \
+      --graphics none \
+      --console pty,target_type=serial \
+      --location {{ rhel_iso }} \
+      --initrd-inject=/var/lib/libvirt/images/kickstart/{{ vm_os_variant }}/ks.cfg \
+      --noreboot \
+      --extra-args "ks=file:/ks.cfg network --bootproto=dhcp --device=eth0 console=ttyS0,115200n8 serial"
+  when: vm_name not in RunningVMs.list_vms

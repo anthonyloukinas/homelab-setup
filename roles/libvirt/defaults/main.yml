@@ -1,6 +1,9 @@
 ---
 vm_type: hvm
-vm_os: "rhel7"
-vm_name: "rhel-node1"
-vm_memory: 1024
-vm_cpus: 1
+vm_disk_path: /home/libvirt/images/ # default location for vm images
+vm_disk_format: qcow2 # default disk image format (qcow2 provides most portability)
+network_bridge: virbr0 # this may vary depending on your system. virbr0 is typically default
+
+# Iso locations
+rhel_iso: /home/libvirt/images/isos/rhel-server-7.6-x86_64-dvd.iso
+centos_iso: /home/libvirt/images/isos/centos-server-7.6-x86_64-dvd.iso

@@ -1,17 +1,29 @@
 ---
 - hosts: all
+  become: yes
   vars_prompt:
-    - name: "vm_os"
-      prompt: "Operating System (rhel7, centos7)"
+    - name: "vm_os_type"
+      prompt: "OS Type (windows, linux)"
       private: no
+      default: "linux"
+    - name: "vm_os_variant"
+      prompt: "Operating System (rhel7.0, centos7.0, ubuntu16.04, debian9)"
+      private: no
+      default: rhel7.0
     - name: "vm_name"
       prompt: "Hostname"
       private: no
     - name: "vm_memory"
       prompt: "Memory (MiB)"
       private: no
-    - name: "vm_cpus"
+      default: 1024
+    - name: "vm_vcpus"
       prompt: "CPU Count"
       private: no
+      default: 1
+    - name: "vm_disk_size"
+      prompt: "Disk size"
+      private: no
+      default: 10
   roles:
     - libvirt
