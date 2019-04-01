@@ -1,0 +1,13 @@
+---
+- name: Verify the zone exists
+  stat:
+    path: "/var/named/dynamic/{{ dns_zone }}.db"
+  
+- name: Add new host to zone
+  lineinfile:
+    path: "/var/named/dynamic/{{ dns_zone }}.db"
+    state: present
+    line: "{{ hostname }}	{{ new_host_ttl }}	{{ new_host_record_type }}	{{ new_host_address }}"
+  become: yes
+  notify:
+    - restart bind

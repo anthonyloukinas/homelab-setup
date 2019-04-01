@@ -1,0 +1,14 @@
+---
+- name: Verify the zone exists
+  stat:
+    path: "/var/named/dynamic/{{ dns_zone }}.db"
+  
+- name: Remove host to zone
+  lineinfile:
+    path: "/var/named/dynamic/{{ dns_zone }}.db"
+    state: absent
+    regexp: '^{{ hostname }}\b\s' # \b assert this is end of word, \s matches any whitespace
+    # validate: 'named-checkzone {{ dns_zone }} %s'
+    backup: yes
+  notify:
+    - restart bind

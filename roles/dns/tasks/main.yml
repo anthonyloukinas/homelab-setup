@@ -1,0 +1,19 @@
+---
+- name: Verify our targeted zone exists ({{ dns_zone }})
+  stat:
+    path: "/var/named/dynamic/{{ dns_zone }}.db"
+  register: zoneExists
+  ignore_errors: yes
+
+- name: Copy our zone template into /var/named/dynamic ({{ dns_zone }})
+  template:
+    src: "zone.db.j2"
+    dest: "/var/named/dynamic/{{ dns_zone }}.db"
+    owner: named
+    group: named
+    mode: '0644'
+    validate: 'named-checkzone {{ dns_zone }} %s'
+  when: not zoneExists
+
+- name: Include action ({{ dns_action }})
+  include_tasks: "{{ dns_action }}.yml"

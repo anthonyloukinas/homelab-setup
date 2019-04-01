@@ -1,0 +1,6 @@
+# Default DNS Zone (change this to your zone)
+dns_zone: "loukinas.local"
+
+# New Host Record Parameters
+new_host_ttl: 60
+new_host_record_type: "A"

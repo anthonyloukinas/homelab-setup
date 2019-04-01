@@ -1,0 +1,14 @@
+---
+- hosts: all
+  remote_user: automation_user
+  become: yes
+  become_method: sudo
+  vars:
+    dns_action: "del-record"
+    dns_zone: "loukinas.local"
+    hostname: "dns02"
+    new_host_ttl: 3600
+    new_host_record_type: "A"
+    new_host_address: "172.16.0.2"
+  roles:
+    - dns
