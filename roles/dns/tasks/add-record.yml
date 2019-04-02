@@ -2,7 +2,16 @@
 - name: Verify the zone exists
   stat:
     path: "/var/named/dynamic/{{ dns_zone }}.db"
-  
+
+- name: Check if host already exists
+  lineinfile:
+    path: "/var/named/dynamic/{{ dns_zone }}.db"
+    state: present
+    regexp: '^{{ hostname }}\b\s' # \b assert this is end of word, \s matches any whitespace
+  check_mode: yes
+  register: hostExists
+  failed_when: hostExists.changed
+
 - name: Add new host to zone
   lineinfile:
     path: "/var/named/dynamic/{{ dns_zone }}.db"
@@ -11,3 +20,11 @@
   become: yes
   notify:
     - restart bind
+
+- name: Force pending handlers to run
+  meta: flush_handlers
+
+- name: Test if record exists in bind
+  command: 'dig @127.0.0.1 {{ hostname }}.{{ dns_zone }} +short'
+  register: recordExists
+  failed_when: recordExists.stdout | length == 0
